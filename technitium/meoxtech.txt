@@ -20,7 +20,6 @@ sudo systemctl restart systemd-resolved
 cat /etc/resolv.conf
 
 nameserver 192.168.10.xx
-nameserver 10.97.4.1
 nameserver 8.8.8.8
 search .
 
@@ -32,4 +31,4 @@ sudo systemctl disable systemd-resolved
 
 # 2. แก้ไฟล์ resolv.conf ให้ชั่วคราว (เพื่อให้เครื่องยังออกเน็ตไปโหลด Docker Image ได้)
 sudo rm /etc/resolv.conf
-echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+echo "nameserver 192.168.10.xx" | sudo tee /etc/resolv.conf
