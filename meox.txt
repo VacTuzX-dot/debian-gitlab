@@ -4,6 +4,10 @@
 > apt -y install nodejs npm docker.io docker-compose openssh-server openssh-client ufw git curl
 > config etc/ssh/sshd_config
 (ถ้าเพื่อนทำvlanเสร็จไปconfig networkเป็นstatic)
+auto ens18
+iface ens18 inet static
+    address 192.168.10.20/24
+    gateway 192.168.10.1
 
 ufw enable
 ufw allow OpenSSH
@@ -34,4 +38,5 @@ docker volume create portainer_data
 
 
 docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
 
