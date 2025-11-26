@@ -11,32 +11,21 @@ iface ens18 inet static
 
 ufw enable
 ufw allow OpenSSH
+ufw allow 53/tcp
+ufw allow 53/udp
 ufw allow 80/tcp
 ufw allow 443/tcp
 ufw allow 2222/tcp
 ufw allow 5000/tcp
+ufw allow 5005/tcp
+ufw allow 5005/udp
 ufw allow 8080/tcp
 ufw allow 9443/tcp
 ufw status
-ลงgitlab
-apt-get install -y curl ca-certificates apt-transport-https gnupg2
 
-echo "deb [signed-by=/usr/share/keyrings/gitlab-ce-archive-keyring.gpg] https://packages.gitlab.com/gitlab/gitlab-ce/debian bookworm main" | sudo tee /etc/apt/sources.list.d/gitlab_gitlab-ce.list
+micro /etc/docker/daemon.json
+{
+    "insecure-registries": ["192.168.10.30:5005"]
+}
 
-curl -fsSL https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/gitlab-ce-archive-keyring.gpg
-
-apt-get update
-
-apt-get install gitlab-ce -y
-
-gitlab-ctl reconfigure
-
-grep ^Password /etc/gitlab/initial_root_password
-
-vm2 ลง docker.io กับ portainer
-docker volume create portainer_data
-
-
-docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-
-
+micro /etc/
