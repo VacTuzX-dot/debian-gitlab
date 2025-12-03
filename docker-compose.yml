@@ -102,17 +102,17 @@
 
 services:
   gitlab:
-    image: 192.168.20.251:8080/gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:latest
     container_name: gitlab
     restart: always
-    hostname: "192.168.10.100"
+    hostname: "192.168.10.20"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         # URL สำหรับเข้าหน้าเว็บ
-        external_url 'http://192.168.10.100'
+        external_url 'http://192.168.10.20'
 
         # ตั้งค่า Container Registry ผ่าน HTTP
-        registry_external_url 'http://192.168.10.100:5005'
+        registry_external_url 'http://192.168.10.20:5005'
         gitlab_rails['registry_enabled'] = true
         registry['enable'] = true
         registry_nginx['listen_port'] = 5005
@@ -138,7 +138,7 @@ services:
       - gitlab-net
 
   gitlab-runner:
-    image: 192.168.20.251:8080/gitlab/gitlab-runner:latest
+    image: gitlab/gitlab-runner:latest
     container_name: gitlab-runner
     restart: always
     depends_on:
