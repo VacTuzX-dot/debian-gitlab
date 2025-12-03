@@ -1,0 +1,13 @@
+{
+    # บังคับให้ Caddy ฟังบน port ที่ map จาก docker-compose
+    http_port 8080
+    https_port 8443
+}
+
+# FQDN / hostname ที่ใช้ภายใน LAN / DNS วางไว้แล้ว เช่น
+www.group1.vec {
+    tls internal    # ใช้ self-signed / internal certificate (ไม่ขอ Let's Encrypt)
+    reverse_proxy backend:3000    # ถ้าใช้ container network ชื่อ backend
+    # ถ้าจะ proxy ไป IP ภายนอก / ภายใน LAN
+    # reverse_proxy 10.168.192.20:3000
+}

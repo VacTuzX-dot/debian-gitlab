@@ -1,7 +1,7 @@
 ลง Debian 13
 > apt update && apt -y upgrade
 > หรือตั้งค่า sources.list
-> apt -y install nodejs npm docker.io docker-compose openssh-server openssh-client ufw git curl
+> apt -y install nodejs npm docker.io docker-compose openssh-server openssh-client ufw git curl fastfetch micro
 > git clone https://github.com/vactuzx-dot/meox
 > config etc/ssh/sshd_config
 (ถ้าเพื่อนทำvlanเสร็จไปconfig networkเป็นstatic)

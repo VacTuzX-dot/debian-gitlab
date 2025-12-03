@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      # expose port 8080 (HTTP) และ 8443 (HTTPS) แทน 80/443
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      # ถ้าอยากเก็บ cert / data คงอยู่ข้าม container restart
+      - caddy_data:/data
+      - caddy_config:/config
+    # ถ้าจะ reverse-proxy ไป container ใน network เดียวกัน -> define network
+    networks:
+      - web
+
+  # ตัวอย่าง service backend (ปรับชื่อ / image / port ตามจริง)
+  backend:
+    image: my-backend-image:latest # แทนที่ด้วย image จริง
+    container_name: backend_app
+    restart: unless-stopped
+    expose:
+      - "3000" # port ที่ backend รันภายใน container
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
