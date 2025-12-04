@@ -28,7 +28,7 @@
 # เพิ่มการตั้งค่า Insecure Registry ให้ใส่เนื้อหาตามนี้ลงไป (ถ้ามีข้อมูลเดิมอยู่แล้ว ให้แทรกบรรทัด insecure-registries เข้าไปให้ถูก format JSON)
 # ใส่เนื้อหาตามนี้ลงไป
 # {
-#   "insecure-registries" : ["192.168.10.20:5005","192.168.20.251:5000","192.168.20.251:4873"]
+#   "insecure-registries" : ["192.168.10.20:5005"]
 # }
 # อย่าลืมเซฟไฟล์ !!!!!!!!!!
 # ต่อไปให้รีสตาร์ท Docker เพื่อให้ค่าใหม่ทำงาน ต้องรีสตาร์ท service หนึ่งครั้ง
@@ -39,11 +39,11 @@
 
 # หลังจากรันไฟล์นี้ต้อง register gitlab-runner กับ gitlab
 # ใช้คำสั่ง "docker exec -it gitlab-runner gitlab-runner register"
-# ถ้ามันถาม url ให้ใส่ "http://192.168.10.100" หรือ IP ของ VM1 แล้วมันจะถามหา token ให้ไปสร้าง runner มาซักตัวมันจะให้ token เราก็เอามาใส่
+# ถ้ามันถาม url ให้ใส่ "http://192.168.10.20" หรือ IP ของ VM1 แล้วมันจะถามหา token ให้ไปสร้าง runner มาซักตัวมันจะให้ token เราก็เอามาใส่
 # และมันจะถามชื่ออะไรซักอย่างให้ใส่ "docker" ต่อมามันจะถาม executor อันนี้สำคัญให้ใส่ "docker"
 # หลังจากนั้นมันจะถาม images อันนี้ก็สำคัญให้ใส่ไปว่า "docker:24.0.5" เป็นอันเสร็จ
 # หลังจากนั้นก็เข้าไปแก้ไฟล์ config.toml ของ gitlab-runner ตามตัวอย่างด้านล่างหลักๆจะมีอยู่ 4 จุด
-#   clone_url = "http://192.168.10.100" จุดที่ 1 อันนี้ให้เพิ่มไปต่อท้ายในหัวข้อ [[runners]]
+#   clone_url = "http://192.168.10.20" จุดที่ 1 อันนี้ให้เพิ่มไปต่อท้ายในหัวข้อ [[runners]]
 #   privileged = true จุดที่ 2 อันนี้จะมีอยู่แล้วแค่เปลื่ยนจาก false เป็น true
 #   volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"] จุดที่ 3 อันนี้ก็จะมีอยู่แล้วแต่จะมีแค่ "/cache" ได้ใส่ , และเพิ่ม "/var/run/docker.sock:/var/run/docker.sock" เข้าไปด้านหน้า
 #   network_mode = "gitlab-setup_gitlab-net" จุดที่ 4 ตรงนี้อาจจะเอาออกก็ได้ถ้าไม่ได้เก็บ docker-compose.yml ไว้ในโฟลเดอร์
@@ -61,7 +61,7 @@
 
 # [[runners]]
 #   name = "docker"
-#   url = "http://192.168.10.100"
+#   url = "http://192.168.10.20"
 #   id = 1
 #   token = "glrt-qV5k7SHo_7seWizZLOKLjW86MQp0OjEKdToxCw.01.1219yqr6y"
 #   token_obtained_at = 2025-11-19T03:51:10Z
@@ -69,7 +69,7 @@
 #   executor = "docker"
 
 #   # [จุดที่ 1] สำคัญมาก! บอก Runner ว่าถ้าเจอ URL นี้ให้ใช้ชื่อ Container แทน localhost
-#   clone_url = "http://192.168.10.100"
+#   clone_url = "http://192.168.10.20"
 
 #   [runners.cache]
 #     MaxUploadedArchiveSize = 0
